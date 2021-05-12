@@ -1,18 +1,15 @@
 const Bootcamp = require('../models/Bootcamps');
-
+const ErrorResponse = require('../util/erroeResponse');
 exports.getBootcamp = async (req, res, next) => {
   try {
     const bootcamps = await Bootcamp.find();
     res.status(200).json({
       status: 'success',
+      total: bootcamps.length,
       bootcamps,
     });
   } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      total: bootcamps.length,
-      error: error.message,
-    });
+    next(error);
   }
 };
 
@@ -24,10 +21,7 @@ exports.createBootcamp = async (req, res, next) => {
       bootcamp,
     });
   } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      error: error.message,
-    });
+    next(error);
   }
 };
 
@@ -38,17 +32,16 @@ exports.updateBootcamp = async (req, res, next) => {
       runValidators: true,
     });
     if (!bootcamp) {
-      res.status(404).json({ msg: 'No document found' });
+      return next(
+        new ErrorResponse(`No document found with ${req.params.id}`, 404)
+      );
     }
     res.status(200).json({
       status: 'success',
       bootcamp,
     });
   } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      error: error.message,
-    });
+    next(error);
   }
 };
 
@@ -56,30 +49,32 @@ exports.deleteBootcamp = async (req, res, next) => {
   try {
     const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
     if (!bootcamp) {
-      res.status(404).json({ msg: 'No document found' });
+      return next(
+        new ErrorResponse(`No document found with ${req.params.id}`, 404)
+      );
     }
     res.status(204).json({
       status: 'success',
     });
   } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      error: error.message,
-    });
+    next(error);
   }
 };
 
 exports.getOneBootcamp = async (req, res, next) => {
   try {
     const bootcamp = await Bootcamp.findById(req.params.id);
+    if (!bootcamp) {
+      return next(
+        new ErrorResponse(`No document found with ${req.params.id}`, 404)
+      );
+    }
     res.status(200).json({
       status: 'success',
       bootcamp,
     });
   } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      error: error.message,
-    });
+    //next(new ErrorResponse(`Something went wrong`, 500));
+    next(error);
   }
 };
