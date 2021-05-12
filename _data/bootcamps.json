@@ -1,0 +1,66 @@
+[
+  {
+    "_id": "5d713995b721c3bb38c1f5d0",
+    "user": "5d7a514b5d2c12c7449be045",
+    "name": "Byte Academy",
+    "description": " Its offerings include Full Stack Python development, FinTech (financial technology), Data Science, Blockchain and Quant-Algos.",
+    "website": "https://www.byteacademy.co/",
+    "phone": "(111) 111-1111",
+    "email": "info@byteacademy.co",
+    "address": "129, 10th Cross Rd, near Metro Station, Binnamangala, Stage 1, Indiranagar, Bengaluru, Karnataka 560038",
+    "careers": ["Data science", "Full Stack development"],
+    "housing": false,
+    "jobAssistance": true,
+    "jobGuarantee": true,
+    "acceptGi": false
+  },
+  {
+    "_id": "5d713a66ec8f2b88b8f830b8",
+    "user": "5d7a514b5d2c12c7449be046",
+    "name": "the hacking school",
+    "description": "India needs to change the way it trains and skills it's huge youth population. India needs bootcamps. And The Hacking School is taking India's talent to the next level.",
+    "website": "https://www.thehackingschool.com/",
+    "phone": "(222) 222-2222",
+    "email": "enroll@moderntech.com",
+    "address": "Trillion, 4th Floor, Fortune Towers, Near Wells Fargo, Raidurgam, Hyderabad",
+    "careers": ["Full stack Web Development", "BlockChain", "Mobile Development"],
+    "housing": true,
+    "jobAssistance": true,
+    "jobGuarantee": true,
+    "acceptGi": true
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff787",
+    "user": "5c8a1d5b0190b214360dc031",
+    "name": "GEEKSKOOL",
+    "description": "The GEEKSKOOL program is a 3 month, full time, intensive, coding and training program held in Bangalore. The program is for those who want to make the most of a career in startups.",
+    "website": "https://www.geekskool.com/",
+    "phone": "(333) 333-3333",
+    "email": "info@geekskool.com",
+    "address": "2698, 19th Main Rd, 4th Cross Rd, HAL 2nd Stage, Kodihalli, Bengaluru, Karnataka 560008",
+    "careers": ["Web Development", "Data Science"],
+    "housing": false,
+    "jobAssistance": true,
+    "jobGuarantee": false,
+    "acceptGi": false
+  },
+  {
+    "_id": "5d725a1b7b292f5f8ceff788",
+    "user": "5c8a1d5b0190b214360dc032",
+    "name": "Mindmajix",
+    "description": "Mindmajix offers Data Science, Cybersecurity, and UI Developer coding bootcamps online or in-person in Hyderabad and Bangalore, India. Mindmajix’s bootcamps can be completed in three ways: self-paced learning, live online training, or corporate training for groups",
+    "website": "https://mindmajix.com/?utm_source=coursereport&utm_medium=schoolpage",
+    "phone": "(444) 444-4444",
+    "email": "info@mindmajix.com",
+    "address": "Plot No 44 Building, Eco House, Nagarjuna Hills, Punjagutta, Hyderabad, Telangana 500082",
+    "careers": [
+      "Cyber security",
+      "Data Science",
+      "UX design"
+    ],
+    "housing": false,
+    "jobAssistance": true,
+    "jobGuarantee": false,
+    "acceptGi": false
+  }
+]
