@@ -63,6 +63,7 @@ const advanceResults = (model, populate) => async (req, res, next) => {
       limit,
     };
   }
+  console.log('hey');
   res.advanceResults = {
     success: true,
     count: results.length,

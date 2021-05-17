@@ -9,6 +9,22 @@ exports.getBootcamp = asyncHandler(async (req, res, next) => {
 });
 
 exports.createBootcamp = asyncHandler(async (req, res, next) => {
+  //Add user to body
+  req.body.user = req.user.id;
+
+  //Check for published bootcamps
+  const published = await Bootcamp.findOne({ user: req.user.id });
+
+  //If the user is not admin they can only create One Bootcamp
+  if (published && req.user.role !== 'admin') {
+    return next(
+      new ErrorResponse(
+        `the user with ID ${req.user.id} has already published a Bootcamp`,
+        400
+      )
+    );
+  }
+
   const bootcamp = await Bootcamp.create(req.body);
   res.status(201).json({
     status: 'success',
@@ -17,15 +33,19 @@ exports.createBootcamp = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateBootcamp = asyncHandler(async (req, res, next) => {
-  const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  let bootcamp = await Bootcamp.findById(req.params.id);
   if (!bootcamp) {
     return next(
       new ErrorResponse(`No document found with ${req.params.id}`, 404)
     );
   }
+  if (bootcamp.user.toString() !== req.user.id && req.user.role != 'admin') {
+    return next(new ErrorResponse(`User id is not authorized to update`, 401));
+  }
+  bootcamp = await Bootcamp.findOneAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
   res.status(200).json({
     status: 'success',
     bootcamp,
@@ -38,6 +58,9 @@ exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
     return next(
       new ErrorResponse(`No document found with ${req.params.id}`, 404)
     );
+  }
+  if (bootcamp.user.toString() !== req.user.id && req.user.role != 'admin') {
+    return next(new ErrorResponse(`User id is not authorized to delete`, 401));
   }
   bootcamp.remove();
   res.status(204).json({
@@ -98,6 +121,9 @@ exports.bootcampPhotoUpload = asyncHandler(async (req, res, next) => {
     return next(
       new ErrorResponse(`No document found with ${req.params.id}`, 404)
     );
+  }
+  if (bootcamp.user.toString() !== req.user.id && req.user.role != 'admin') {
+    return next(new ErrorResponse(`User id is not authorized to update`, 401));
   }
 
   if (!req.files) {
