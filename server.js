@@ -2,7 +2,13 @@ const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
 const morgan = require('morgan');
+const sanitized = require('express-mongo-sanitize');
 const fileupload = require('express-fileupload');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
+const cors = require('cors');
 const connectDB = require('./config/db');
 const cookieparser = require('cookie-parser');
 const errorHandler = require('./middlewares/error');
@@ -29,6 +35,28 @@ if (process.env.NODE_ENV === 'development') {
 }
 //File uploading
 app.use(fileupload());
+
+//sanitize data
+app.use(sanitized());
+
+//Set security headers
+app.use(helmet());
+
+//Prevent xss attacks
+app.use(xss());
+
+//rate limit
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 100,
+});
+app.use(limiter);
+
+// Prevent http param pollution
+app.use(hpp());
+
+//enable cors:
+app.use(cors());
 
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
