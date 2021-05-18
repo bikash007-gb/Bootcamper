@@ -3,6 +3,7 @@ const authController = require('../controllers/auth');
 const auth = require('../middlewares/auth');
 const router = express.Router();
 
+router.route('/logout').post(authController.logout);
 router.route('/register').post(authController.register);
 router.route('/login').post(authController.login);
 router.route('/me').get(auth.protect, authController.getMe);
